@@ -6,7 +6,7 @@ const SingleCard = ({ item, itemHandler }) => {
   return (
     <div>
       <div className="cardd pt-3 relative">
-        <img className="" src={img} alt="" />
+        <img className="rounded-3xl" src={img} alt="" />
         <h1 className="text-2xl font-semibold mt-4 mb-2 ml-2 ">{name}</h1>
         <h3 className="text-2xl ml-2 ">Price: {price}</h3>
         <p className="mt-6 ml-2 text-muted text-inherit">Available: {stock}</p>
@@ -15,7 +15,7 @@ const SingleCard = ({ item, itemHandler }) => {
           onClick={() => {
             itemHandler(item);
           }}
-          className="w-full rounded-b-md bg-yellow-100 py-3 absolute bottom-0 mt-3"
+          className="w-full rounded-b-md bg-yellow-100 py-3 absolute bottom-0 mt-3 hover:bg-orange-600"
         >
           Add To Cart
         </button>
