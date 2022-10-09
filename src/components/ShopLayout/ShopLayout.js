@@ -1,17 +1,18 @@
 import React from "react";
+import { useState } from "react";
 import CalculateCard from "../CalculateCard/CalculateCard";
 import ShopCard from "../ShopCard/ShopCard";
 import "./ShopLayout.css";
 
 const ShopLayout = () => {
   return (
-    <div className="layout-wrapper">
+    <div>
       <div>
         <ShopCard />
       </div>
-      <div className="calculate-section">
+      {/* <div className="calculate-section">
         <CalculateCard />
-      </div>
+      </div> */}
     </div>
   );
 };
