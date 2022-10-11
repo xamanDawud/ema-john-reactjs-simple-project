@@ -3,7 +3,6 @@ import { BeakerIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 
 const CalculateCard = ({ itemTotal }) => {
-  console.log(itemTotal);
   let itemPrice = 0;
   let shipingCharge = 0;
   let tax = 0;

@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { loadersCardAndShop } from "./loaders/loadersCardAndShop";
 import "./App.css";
 import Inventory from "./components/Inventory/Inventory";
 import Main from "./components/layouts/Main";
@@ -14,7 +15,11 @@ function App() {
       children: [
         { path: "/", element: <ShopLayout /> },
         { path: "/shop", element: <ShopLayout /> },
-        { path: "/order", element: <Order /> },
+        {
+          path: "/order",
+          loader: loadersCardAndShop,
+          element: <Order />,
+        },
         { path: "/inventory", element: <Inventory /> },
         { path: "/login", element: <Login /> },
       ],

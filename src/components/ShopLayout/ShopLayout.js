@@ -10,9 +10,6 @@ const ShopLayout = () => {
       <div>
         <ShopCard />
       </div>
-      {/* <div className="calculate-section">
-        <CalculateCard />
-      </div> */}
     </div>
   );
 };
