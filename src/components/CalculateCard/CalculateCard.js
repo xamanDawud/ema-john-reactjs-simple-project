@@ -8,20 +8,19 @@ const CalculateCard = ({ itemTotal }) => {
   let shipingCharge = 0;
   let tax = 0;
   let grandTotal = 0;
+  let quantity = 0;
   for (const item of itemTotal) {
+    quantity = quantity + item.quantity;
     itemPrice = itemPrice + item.price;
-    shipingCharge = shipingCharge + item.shipping;
+    shipingCharge = shipingCharge + item.shipping * item.quantity;
     tax = tax + (item.price * 10) / 100;
     grandTotal = itemPrice + shipingCharge + parseInt(tax);
-    console.log(typeof itemPrice);
-    console.log(typeof shipingCharge);
-    console.log(typeof tax);
   }
   return (
     <div className="px-4">
       <h1 className="text-2xl text-center">Order Summery</h1>
       <p className="mb-3 mt-12">
-        Selected items: <span>{itemTotal.length}</span>
+        Selected items: <span>{quantity}</span>
       </p>
       <p className="mb-3">
         Total price: $<span>{itemPrice}</span>

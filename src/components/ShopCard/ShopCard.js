@@ -4,14 +4,27 @@ import { useEffect } from "react";
 import { useState } from "react";
 import SingleCard from "../SingleCard/SingleCard";
 import CalculateCard from "../CalculateCard/CalculateCard";
+import { addToDb, getStroedCard } from "../../utilities/fakedb";
 
 const ShopCard = () => {
   let [itemTotal, setItemTotal] = useState([]);
+
   let clickToAddHandler = (item) => {
-    let newItemTotal = [...itemTotal, item];
-    setItemTotal(newItemTotal);
-    console.log(setItemTotal);
+    let newCart = [];
+    let exists = itemTotal.find((product) => product.id === item.id);
+    if (!exists) {
+      item.quantity = 1;
+      newCart = [...itemTotal, item];
+    } else {
+      const rest = itemTotal.filter((product) => product.id !== item.id);
+      exists.quantity = exists.quantity + 1;
+      newCart = [...rest, exists];
+    }
+
+    setItemTotal(newCart);
+    addToDb(item.id);
   };
+
   let [items, setItems] = useState([]);
   useEffect(() => {
     fetch(
@@ -21,9 +34,23 @@ const ShopCard = () => {
       .then((data) => setItems(data));
   }, []);
 
+  useEffect(() => {
+    const storedCard = getStroedCard();
+    let saveCart = [];
+    for (const id in storedCard) {
+      let addedProducts = items.find((item) => item.id === id);
+      if (addedProducts) {
+        let quantity = storedCard[id];
+        addedProducts.quantity = quantity;
+        saveCart.push(addedProducts);
+      }
+    }
+    setItemTotal(saveCart);
+  }, [items]);
+
   return (
     <div className="layout-wrapper">
-      <div className="single-card-wrapper p-8 mt-12">
+      <div className="single-card-wrapper p-8 mt-12 ">
         {items.map((item) => (
           <SingleCard
             key={item.id}
