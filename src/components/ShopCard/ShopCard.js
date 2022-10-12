@@ -4,10 +4,19 @@ import { useEffect } from "react";
 import { useState } from "react";
 import SingleCard from "../SingleCard/SingleCard";
 import CalculateCard from "../CalculateCard/CalculateCard";
-import { addToDb, getStroedCard } from "../../utilities/fakedb";
+import {
+  addToDb,
+  deleteShoppingCart,
+  getStroedCard,
+} from "../../utilities/fakedb";
 
 const ShopCard = () => {
   let [itemTotal, setItemTotal] = useState([]);
+
+  let clearCart = () => {
+    setItemTotal([]);
+    deleteShoppingCart();
+  };
 
   let clickToAddHandler = (item) => {
     let newCart = [];
@@ -61,7 +70,7 @@ const ShopCard = () => {
       </div>
       <div>
         <div className="calculate-section">
-          <CalculateCard itemTotal={itemTotal} />
+          <CalculateCard clearCart={clearCart} itemTotal={itemTotal} />
         </div>
       </div>
     </div>

@@ -1,8 +1,13 @@
 import React from "react";
-import { BeakerIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { Link } from "react-router-dom";
+import {
+  BeakerIcon,
+  TrashIcon,
+  ShoppingCartIcon,
+} from "@heroicons/react/24/solid";
 import { useState } from "react";
 
-const CalculateCard = ({ itemTotal }) => {
+const CalculateCard = ({ itemTotal, clearCart }) => {
   let itemPrice = 0;
   let shipingCharge = 0;
   let tax = 0;
@@ -33,12 +38,17 @@ const CalculateCard = ({ itemTotal }) => {
       <p className="mb-3 text-1xl font-semibold">
         Grand Total: $<span>{grandTotal.toFixed(2)}</span>
       </p>
-      <button className="bg-red-600 mt-5 p-3 inline-flex rounded-md w-full justify-center text-white">
+      <button
+        onClick={clearCart}
+        className="bg-red-600 mt-5 p-3 inline-flex rounded-md w-full justify-center text-white"
+      >
         Clear Cart <TrashIcon className="ml-2" width={"20px"} />
       </button>
-      <button className="bg-yellow-400 mt-2 p-3 inline-flex rounded-md w-full justify-center text-white">
-        Clear Cart <TrashIcon className="ml-2" width={"20px"} />
-      </button>
+      <Link to="/order">
+        <button className="bg-yellow-400 mt-2 p-3 inline-flex rounded-md w-full justify-center text-white">
+          Review Cart <ShoppingCartIcon className="ml-2" width={"20px"} />
+        </button>
+      </Link>
     </div>
   );
 };
