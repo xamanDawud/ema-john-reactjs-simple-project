@@ -1,9 +1,13 @@
 import React from "react";
+import { useContext } from "react";
+import { AuthContext } from "../../context/UserContex";
 
 const Inventory = () => {
+  let { user } = useContext(AuthContext);
+  console.log(user);
   return (
     <div>
-      <h1>This page is came from Inventory</h1>
+      <h1>{user?.email}</h1>
     </div>
   );
 };

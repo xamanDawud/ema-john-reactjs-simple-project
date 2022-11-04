@@ -1,35 +1,37 @@
 import React from "react";
 import { useContext } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/UserContex";
 
-import "./Login.css";
-
-const Login = () => {
-  const location = useLocation();
-  let from = location.state?.from?.pathname || "/";
-  let { signIn } = useContext(AuthContext);
-  let navigate = useNavigate();
+const SignUp = () => {
+  let { createUser } = useContext(AuthContext);
+  let [error, setErro] = useState(null);
   const submitHandler = (event) => {
     event.preventDefault();
     let form = event.target;
     let email = form.email.value;
     let password = form.password.value;
-    signIn(email, password)
+    let confirm = form.confirm.value;
+    if (password !== confirm) {
+      setErro("Your password does not match ");
+      return;
+    }
+
+    createUser(email, password)
       .then((result) => {
-        const user = result.user;
-        navigate(from, { replace: true });
+        let user = result.user;
         console.log(user);
       })
       .catch((error) => {
-        console.error(error);
+        console.log(error);
       });
     form.reset();
-    console.log(email, password);
+    console.log(email, password, confirm);
   };
   return (
     <div className="login-container">
-      <h1 className="loginTitle">Login</h1>
+      <h1 className="loginTitle">Sign UP</h1>
       <form onSubmit={submitHandler}>
         <div className="form-control">
           <label htmlFor="">Email</label>
@@ -49,11 +51,21 @@ const Login = () => {
             required
           />
         </div>
-        <input className="btn-submit" type="submit" value="Login" />
+        <div className="form-control">
+          <label htmlFor="">Confirm Password</label>
+          <input
+            type="password"
+            placeholder="Provide same password"
+            name="confirm"
+            required
+          />
+        </div>
+        <p className="text-red-500">{error}</p>
+        <input className="btn-submit" type="submit" value="Sign Up" />
         <p className="create-account-pra">
-          New ema john?{" "}
-          <Link className="create-account" to="/signup">
-            Create new account
+          Already have an account?{" "}
+          <Link className="create-account" to="/login">
+            Log In
           </Link>
         </p>
       </form>
@@ -61,4 +73,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
